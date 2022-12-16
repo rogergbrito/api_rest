@@ -5,7 +5,9 @@ dotenv.config();
 
 import './src/database';
 
+import swaggerUi from 'swagger-ui-express';
 import express from 'express';
+import swaggerDocument from './swagger.json';
 import homeRoutes from './src/routes/homeRoutes';
 import userRoutes from './src/routes/userRoutes';
 import tokenRoutes from './src/routes/tokenRoutes';
@@ -31,6 +33,7 @@ class App {
     this.app.use('/tokens/', tokenRoutes);
     this.app.use('/alunos/', alunoRoutes);
     this.app.use('/fotos/', fotoRoutes);
+    this.app.use('/doc/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
   }
 }
 
