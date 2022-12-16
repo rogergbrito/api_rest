@@ -1,0 +1,812 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API Escola",
+        "description": "# Informações\n ## Como usar:\nPara consumir a API da Escola, basta criar um usuário no endpoint CRIAR USUÁRIO, em seguida, fazer login no endpoint GERAR TOKEN, o mesmo irá gerar um token de acesso que você pode inserir no Bearer Token das requisições que solicitam uma autorização.\n\n"
+    },
+    "servers": [
+        {
+            "url": "http://35.199.113.251:81",
+            "description": "API Escola"
+        }
+    ],
+    "components": {
+        "securitySchemes": {
+            "Bearer Token": {
+                "type": "Bearer Token",
+                "in": "header",
+                "name": "Bearer Token",
+                "format": "uuid"
+            }
+        }
+    },
+    "paths": {
+        "/users/": {
+            "post": {
+                "summary": "Criar usuário",
+                "description": "Cria um usuário na base.",
+                "tags": [
+                    "Users"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": [
+                                    "user",
+                                    "password",
+                                    "email"
+                                ],
+                                "properties": {
+                                    "nome": {
+                                        "title": "nome",
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "title": "password",
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "title": "email",
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "500": {
+                        "description": "Internal Server Error"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "errors": {
+                                            "title": "Error",
+                                            "type": "array"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "number"
+                                        },
+                                        "nome": {
+                                            "type": "string"
+                                        },
+                                        "email": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/ ": {
+            "put": {
+                "summary": "",
+                "description": "Atualiza seu usuário na base com base nos dados do token.",
+                "tags": [
+                    "Users"
+                ],
+                "security": [
+                    {
+                        "Bearer Token": []
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "nome": {
+                                        "title": "nome",
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "title": "password",
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "title": "email",
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "500": {
+                        "description": "Internal Server Error"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "errors": {
+                                            "title": "Error",
+                                            "type": "array"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "number"
+                                        },
+                                        "nome": {
+                                            "type": "string"
+                                        },
+                                        "email": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/  ": {
+            "delete": {
+                "summary": "Apagar o usuário",
+                "description": "Apaga o usuário criado com base nos dados do token.",
+                "tags": [
+                    "Users"
+                ],
+                "security": [
+                    {
+                        "Bearer Token": []
+                    }
+                ],
+                "responses": {
+                    "500": {
+                        "description": "Internal Server Error"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "errors": {
+                                            "title": "Detail",
+                                            "type": "array"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "OK",
+                        "properties": {
+                            "type": null
+                        }
+                    }
+                }
+            }
+        },
+        "/tokens/": {
+            "post": {
+                "summary": "Gerar Token",
+                "description": "Gera um token para usar os outros endpoints fazendo login com o usuário criado.",
+                "tags": [
+                    "Tokens"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "title": "email",
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "title": "password",
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "500": {
+                        "description": "Internal Server Error"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "errors": {
+                                            "title": "Error",
+                                            "type": "array"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "token": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/alunos/": {
+            "post": {
+                "summary": "Criar aluno",
+                "description": "Criar um aluno na base.",
+                "tags": [
+                    "Alunos"
+                ],
+                "security": [
+                    {
+                        "Bearer Token": []
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "nome": {
+                                        "title": "nome",
+                                        "type": "string"
+                                    },
+                                    "sobrenome": {
+                                        "title": "sobrenome",
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "title": "email",
+                                        "type": "string"
+                                    },
+                                    "idade": {
+                                        "title": "idade",
+                                        "type": "number"
+                                    },
+                                    "peso": {
+                                        "title": "peso",
+                                        "type": "number"
+                                    },
+                                    "altura": {
+                                        "title": "altura",
+                                        "type": "number"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "500": {
+                        "description": "Internal Server Error"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "errors": {
+                                            "title": "Error",
+                                            "type": "array"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "number"
+                                        },
+                                        "nome": {
+                                            "type": "string"
+                                        },
+                                        "sobrenome": {
+                                            "type": "string"
+                                        },
+                                        "email": {
+                                            "type": "string"
+                                        },
+                                        "idade": {
+                                            "type": "number"
+                                        },
+                                        "peso": {
+                                            "type": "number"
+                                        },
+                                        "altura": {
+                                            "type": "number"
+                                        },
+                                        "updated_at": {
+                                            "type": "string"
+                                        },
+                                        "created_at": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/alunos/ ": {
+            "get": {
+                "summary": "Buscar todos os alunos",
+                "description": "Busca todos os alunos da base.",
+                "tags": [
+                    "Alunos"
+                ],
+                "responses": {
+                    "500": {
+                        "description": "Internal Server Error"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "errors": {
+                                            "title": "Error",
+                                            "type": "array"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "number"
+                                            },
+                                            "nome": {
+                                                "type": "string"
+                                            },
+                                            "sobrenome": {
+                                                "type": "string"
+                                            },
+                                            "email": {
+                                                "type": "string"
+                                            },
+                                            "idade": {
+                                                "type": "number"
+                                            },
+                                            "peso": {
+                                                "type": "number"
+                                            },
+                                            "altura": {
+                                                "type": "number"
+                                            },
+                                            "updated_at": {
+                                                "type": "string"
+                                            },
+                                            "created_at": {
+                                                "type": "string"
+                                            },
+                                            "fotos": {
+                                                "type": "array",
+                                                "items": {
+                                                    "properties": {
+                                                        "url": {
+                                                            "type": "string"
+                                                        },
+                                                        "filename": {
+                                                            "type": "string"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/alunos/:id": {
+            "get": {
+                "summary": "Buscar um aluno",
+                "description": "Busca um aluno com o id inserido.",
+                "tags": [
+                    "Alunos"
+                ],
+                "responses": {
+                    "500": {
+                        "description": "Internal Server Error"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "errors": {
+                                            "title": "Error",
+                                            "type": "array"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "number"
+                                        },
+                                        "nome": {
+                                            "type": "string"
+                                        },
+                                        "sobrenome": {
+                                            "type": "string"
+                                        },
+                                        "email": {
+                                            "type": "string"
+                                        },
+                                        "idade": {
+                                            "type": "number"
+                                        },
+                                        "peso": {
+                                            "type": "number"
+                                        },
+                                        "altura": {
+                                            "type": "number"
+                                        },
+                                        "updated_at": {
+                                            "type": "string"
+                                        },
+                                        "created_at": {
+                                            "type": "string"
+                                        },
+                                        "fotos": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "url": {
+                                                        "type": "string"
+                                                    },
+                                                    "filename": {
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/alunos/:id ": {
+            "put": {
+                "summary": "Atualizar um aluno",
+                "description": "Atualiza os dados do aluno com o id inserido.",
+                "tags": [
+                    "Alunos"
+                ],
+                "security": [
+                    {
+                        "Bearer Token": []
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "nome": {
+                                        "title": "nome",
+                                        "type": "string"
+                                    },
+                                    "sobrenome": {
+                                        "title": "sobrenome",
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "title": "email",
+                                        "type": "string"
+                                    },
+                                    "idade": {
+                                        "title": "idade",
+                                        "type": "number"
+                                    },
+                                    "peso": {
+                                        "title": "peso",
+                                        "type": "number"
+                                    },
+                                    "altura": {
+                                        "title": "altura",
+                                        "type": "number"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "500": {
+                        "description": "Internal Server Error"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "errors": {
+                                            "title": "Error",
+                                            "type": "array"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "number"
+                                        },
+                                        "nome": {
+                                            "type": "string"
+                                        },
+                                        "sobrenome": {
+                                            "type": "string"
+                                        },
+                                        "email": {
+                                            "type": "string"
+                                        },
+                                        "idade": {
+                                            "type": "number"
+                                        },
+                                        "peso": {
+                                            "type": "number"
+                                        },
+                                        "altura": {
+                                            "type": "number"
+                                        },
+                                        "updated_at": {
+                                            "type": "string"
+                                        },
+                                        "created_at": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/alunos/:id  ": {
+            "delete": {
+                "summary": "Deletar um aluno",
+                "description": "Apaga o aluno com o id inserido.",
+                "tags": [
+                    "Alunos"
+                ],
+                "security": [
+                    {
+                        "Bearer Token": []
+                    }
+                ],
+                "responses": {
+                    "500": {
+                        "description": "Internal Server Error"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "errors": {
+                                            "title": "Error",
+                                            "type": "array"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "apagado": {
+                                            "type": "boolean"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/fotos/": {
+            "post": {
+                "summary": "Enviar imagem para o aluno",
+                "description": "Envia uma imagem para a base e a mesma é atrelada ao id do aluno.",
+                "tags": [
+                    "Fotos"
+                ],
+                "security": [
+                    {
+                        "Bearer Token": []
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart-form": {
+                            "schema": {
+                                "properties": {
+                                    "foto": {
+                                        "type": "file",
+                                        "required": true
+                                    },
+                                    "aluno_id": {
+                                        "type": "number",
+                                        "required": true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "500": {
+                        "description": "Internal Server Error"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "errors": {
+                                            "title": "Error",
+                                            "type": "array"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "url": {
+                                            "type": "string"
+                                        },
+                                        "id": {
+                                            "type": "number"
+                                        },
+                                        "originalName": {
+                                            "type": "string"
+                                        },
+                                        "filename": {
+                                            "type": "string"
+                                        },
+                                        "aluno_id": {
+                                            "type": "number"
+                                        },
+                                        "updated_at": {
+                                            "type": "string"
+                                        },
+                                        "created_at": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
