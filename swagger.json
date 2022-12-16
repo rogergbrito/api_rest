@@ -102,7 +102,7 @@
         },
         "/users/ ": {
             "put": {
-                "summary": "",
+                "summary": "Atualizar usuário",
                 "description": "Atualiza seu usuário na base com base nos dados do token.",
                 "tags": [
                     "Users"
