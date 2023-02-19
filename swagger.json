@@ -6,7 +6,7 @@
     },
     "servers": [
         {
-            "url": "http://35.199.113.251:81",
+            "url": "localhost:3001",
             "description": "API Escola"
         }
     ],
